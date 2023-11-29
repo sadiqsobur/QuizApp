@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 
+import android.os.Handler;
 import android.view.View;
 import android.widget.Button;
 
@@ -54,10 +55,20 @@ public class MainActivity extends AppCompatActivity {
         if (clicked.getText().equals(correctChoices[currQuestion]))
         {
             points++;
+            mainActivityBinding.question.setText("Correct!");
+        } else {
+            mainActivityBinding.question.setText("Incorrect.");
         }
         currQuestion++;
-        nextQuestion();
+        Handler h =new Handler() ;
+        h.postDelayed(new Runnable() {
+            public void run() {
+                nextQuestion();
+            }
+        }, 2000);
     }
+
+
 
     public void nextQuestion() {
         mainActivityBinding.title.setText(new StringBuilder().append("Score: ").append(points).toString());
